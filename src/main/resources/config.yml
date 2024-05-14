@@ -1,5 +1,6 @@
 bot-token: '1234'
 chat-channel-id: '1234'
+server-ip: ""
 advancementMap:
   "story/mine_stone": "Stone Age"
   "story/upgrade_tools": "Getting an Upgrade"

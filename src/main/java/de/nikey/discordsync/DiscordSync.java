@@ -1,10 +1,12 @@
 package de.nikey.discordsync;
 
+import de.nikey.discordsync.listener.DiscordListener;
+import de.nikey.discordsync.listener.Events;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,7 +29,6 @@ public final class DiscordSync extends JavaPlugin {
 
 
         String botToken = getConfig().getString("bot-token");
-        getLogger().info("Token: "+botToken);
         try {
             jda = JDABuilder.createDefault(botToken)
                     .build()
@@ -58,24 +59,31 @@ public final class DiscordSync extends JavaPlugin {
         jda.addEventListener(new DiscordListener());
 
         getServer().getPluginManager().registerEvents(new Events(),this);
+
+        String ip = getConfig().getString("server-ip");
+
+        sendEmbed("Server is starting!",ip,Color.GREEN);
     }
 
     @Override
     public void onDisable() {
+        String ip = getConfig().getString("server-ip");
+        sendEmbed("Server is stopping!",ip,Color.RED);
         if (jda != null) jda.shutdownNow();
     }
 
-    public static void sendEmbed(Player player, String content, boolean contentInAuthorLine, Color color) {
+    public static void sendEmbed(String content, String ip, Color color) {
         if (chatChannel == null)return;
 
         EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setColor(color)
                 .setAuthor(
-                        contentInAuthorLine ? content : player.getDisplayName(),null,
-                        "https://crafatar.com/avatars/"+player.getUniqueId()+"?overlay=1"
+                        content,null,
+                        null
                 );
 
-        if (!contentInAuthorLine) {
-            embedBuilder.setDescription(content);
+        if (!ip.isEmpty()) {
+            embedBuilder.setDescription(ip);
         }
 
         chatChannel.sendMessage(embedBuilder.build()).queue();

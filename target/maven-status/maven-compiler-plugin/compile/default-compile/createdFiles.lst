@@ -1,3 +1,3 @@
-de\nikey\discordsync\Events.class
 de\nikey\discordsync\DiscordSync.class
-de\nikey\discordsync\DiscordListener.class
+de\nikey\discordsync\listener\Events.class
+de\nikey\discordsync\listener\DiscordListener.class
