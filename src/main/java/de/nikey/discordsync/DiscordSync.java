@@ -69,7 +69,13 @@ public final class DiscordSync extends JavaPlugin {
     public void onDisable() {
         String ip = getConfig().getString("server-ip");
         sendEmbed("Server is stopping!",ip,Color.RED);
-        if (jda != null) jda.shutdownNow();
+
+        try {
+            wait(500);
+            if (jda != null) jda.shutdownNow();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void sendEmbed(String content, String ip, Color color) {
