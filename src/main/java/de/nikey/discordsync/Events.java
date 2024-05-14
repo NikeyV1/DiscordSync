@@ -14,24 +14,24 @@ import java.awt.*;
 public class Events implements Listener {
     @EventHandler
     public void onAsyncChat(AsyncChatEvent event) {
-        DiscordSync.sendMessage(event.getPlayer(), String.valueOf(event.message()),false, Color.GRAY);
+        DiscordSync.sendMessage(String.valueOf(event.message()));
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        DiscordSync.sendMessage(event.getPlayer(),event.getPlayer().getDisplayName() + " joined" , true, Color.YELLOW);
+        DiscordSync.sendMessage(event.getPlayer().getDisplayName() + " joined" );
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        DiscordSync.sendMessage(event.getPlayer(),event.getPlayer().getDisplayName() + " left" , true, Color.YELLOW);
+        DiscordSync.sendMessage(event.getPlayer().getDisplayName() + " left");
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         String deathMessage = event.getDeathMessage() == null ? player.getDisplayName() + " died" : event.getDeathMessage();
-        DiscordSync.sendMessage(player,deathMessage,true,Color.RED);
+        DiscordSync.sendMessage(deathMessage);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -40,7 +40,7 @@ public class Events implements Listener {
         String display = DiscordSync.advancmentToDisplayMap.get(advansmentKey);
         if (display == null) return;
 
-        DiscordSync.sendMessage(event.getPlayer(),event.getPlayer().getDisplayName() + " has made the advancement ["+display+"]",true,Color.GREEN);
+        DiscordSync.sendMessage(event.getPlayer().getDisplayName() + " has made the advancement ["+display+"]");
 
     }
 }
