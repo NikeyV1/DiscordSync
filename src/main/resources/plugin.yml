@@ -1,0 +1,5 @@
+name: DiscordSync
+version: 1.0
+main: de.nikey.discordsync.DiscordSync
+api-version: 1.20
+
