@@ -19,6 +19,11 @@ public class Events implements Listener {
     public void onAsyncChat(AsyncChatEvent event) {
         Component message = event.message();
         String serialize = PlainTextComponentSerializer.plainText().serialize(message);
+        if (serialize.contains("@everyone")) {
+            serialize.replaceAll("@everyone" , "everyone");
+        } else if (serialize.contains("@here")) {
+            serialize.replaceAll("@here" , "here");
+        }
         DiscordSync.sendMessage("**<"+ event.getPlayer().getName()+ ">** " + serialize);
     }
 
