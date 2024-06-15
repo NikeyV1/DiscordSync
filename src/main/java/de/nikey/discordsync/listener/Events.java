@@ -50,7 +50,7 @@ public class Events implements Listener {
         DiscordSync.sendMessage(deathMessage);
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void onPlayerAdvancementDone(PlayerAdvancementDoneEvent event) {
         String advansmentKey = event.getAdvancement().getKey().getKey();
         String display = DiscordSync.advancmentToDisplayMap.get(advansmentKey);
