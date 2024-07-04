@@ -22,10 +22,12 @@ public final class DiscordSync extends JavaPlugin {
     public static TextChannel chatChannel;
 
     public static final Map<String,String> advancmentToDisplayMap = new HashMap<>();
+    private static DiscordSync plugin;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        plugin = this;
 
 
         String botToken = getConfig().getString("bot-token");
@@ -98,5 +100,9 @@ public final class DiscordSync extends JavaPlugin {
     public static void sendMessage(String content) {
         if (chatChannel == null)return;
         chatChannel.sendMessage(content).queue();
+    }
+
+    public static DiscordSync getPlugin() {
+        return plugin;
     }
 }

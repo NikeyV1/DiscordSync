@@ -29,7 +29,9 @@ public class Events implements Listener {
 
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
-        DiscordSync.sendMessage("**<"+event.getPlayer().getName()+">** "+event.getMessage());
+        if (DiscordSync.getPlugin().getConfig().getBoolean("show-commands")) {
+            DiscordSync.sendMessage("**<"+event.getPlayer().getName()+">** "+event.getMessage());
+        }
     }
 
     @EventHandler
